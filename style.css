@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(70deg, #694, #0dd);
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.taskbar {
+    position: absolute;
+    bottom: 0px;
+    padding: 0vh 1vw 1vh 1vw;
+    background-color: #eeea;
+    width: 98vw;
+}
+.taskbar * {
+    display: inline-block;
+}
+.task {
+    margin: 0vh 0.1vw 0vh 0.1vw;
+    background-color: #04f3;
+    font-size: 4vh;
+    width: max-content;
+}
+.task:hover {
+    color: #111;
+    background-color: #04f8;
+}
+.panel {
+    background-color: #fffa;
+    position: absolute;
+    right: 0;
+    font-size: 2vh;
+}
+.window {
+    background-color: #fff;
+    position: absolute;
+}

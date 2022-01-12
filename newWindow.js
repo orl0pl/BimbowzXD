@@ -1,84 +1,44 @@
-var state = {
-    isDragging: false,
-    isHidden: true,
-    xDiff: 0,
-    yDiff: 0,
-    x: 50,
-    y: 50
-};
-
-// hehe: http://youmightnotneedjquery.com/
-function ready(fn) {
-    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
-        fn();
-    } else {
-        document.addEventListener('DOMContentLoaded', fn);
-    }
+var windows = [];
+function createWindow(t, inner, m, x, y, h){
+  var window = {
+    title: t,
+    inner: inner,
+    minimalize: m,
+    position: {x: x, y: y},
+    isHolded: h,
+  }
+  windows.push(window);
+  renderWindow(0);
 }
-
-function renderWindow(w, myState) {
-    if (state.isHidden) {
-        w.style.display = 'none';
-    } else {
-        w.style.display = '';
-    }
-
-    w.style.transform = 'translate(' + myState.x + 'px, ' + myState.y + 'px)';
+function renderWindow(i){
+  console.log(windows)
+  var window = document.createElement("div");
+  var inner = document.createElement("div");
+  window.className = "window";
+  window.setAttribute('id', i)
+  document.body.appendChild(window);
+  window.appendChild(inner);
+  window.innerText = windows[i].title
+  inner.innerHTML = window.inner
+  window.onmousedown = down;
 }
-
-function clampX(n) {
-    return Math.min(Math.max(n, 0),
-                    // container width - window width
-                    500 - 400);
+function down(e){
+  e = e || window.event;
+  e.preventDefault();
+  e.clientX = windows[e.target.getAttribute("id")].position.x;
+  e.clientY = windows[e.target.getAttribute("id")].position.y;
+  document.onmousemove = move;
+  document.onmouseup = up;
 }
-
-function clampY(n) {
-    return Math.min(Math.max(n, 0), 800);
+function move(e){
+  e = e || window.event;
+  e.preventDefault();
+  e.clientX = windows[e.target.getAttribute("id")].position.x;
+  e.clientY = windows[e.target.getAttribute("id")].position.y;
+  e.target.style.left = e.clientX + "px";
+  e.target.style.top = e.clientY + "px";
 }
-
-function onMouseMove(e) {
-    if (state.isDragging) {
-        state.x = clampX(e.pageX - state.xDiff);
-        state.y = clampY(e.pageY - state.yDiff);
-    }
-
-    // Update window position
-    var w = document.getElementById('window');
-    renderWindow(w, state);
+function up(){
+  document.onmouseup = null;
+  document.onmousemove = null;
 }
-
-function onMouseDown(e) {
-    state.isDragging = true;
-    state.xDiff = e.pageX - state.x;
-    state.yDiff = e.pageY - state.y;
-}
-
-function onMouseUp() {
-    state.isDragging = false;
-}
-
-function closeWindow() {
-    state.isHidden = true;
-
-    var w = document.getElementById('window');
-    renderWindow(w, state);
-}
-
-ready(function() {
-    var w = document.getElementById('window');
-    renderWindow(w, state);
-
-    var windowBar = document.querySelectorAll('.window-bar');
-    windowBar[0].addEventListener('mousedown', onMouseDown);
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-
-    var closeButton = document.querySelectorAll('.window-close');
-    closeButton[0].addEventListener('click', closeWindow);
-
-    var toggleButton = document.getElementById('windowtoggle');
-    toggleButton.addEventListener('click', function() {
-        state.isHidden = !state.isHidden;
-        renderWindow(w, state);
-    });
-});
