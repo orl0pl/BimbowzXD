@@ -18,13 +18,16 @@ body {
 }
 .task {
     margin: 0vh 0.1vw 0vh 0.1vw;
+    padding: 0.1vh;
     background-color: #04f3;
     font-size: 4vh;
     width: max-content;
+    border-radius: 0vh 0vh 1vh 1vh;
 }
 .task:hover {
     color: #111;
     background-color: #04f8;
+    cursor: copy;
 }
 .panel {
     background-color: #fffa;
@@ -35,4 +38,12 @@ body {
 .window {
     background-color: #fff;
     position: absolute;
+    border-radius: 1vh;
+    min-width: 20vw;
+    min-height: 12vh;
+}
+.bar {
+    border-radius: 1vh 1vh 0vh 0vh;
+    background-color: #04f;
+    color: #fff;
 }

@@ -1,4 +1,66 @@
 var windows = [];
+function createDialog(title, message, type){
+  var window = document.createElement("div");
+  var header = document.createElement("div");
+  var inner = document.createElement("div");
+  var input = document.createElement("input");
+  var button = document.createElement("button");
+  var value;
+  //
+  document.body.appendChild(window);
+  window.appendChild(header);
+  window.appendChild(inner);
+  inner.appendChild(input);
+  inner.appendChild(button);
+  //
+  window.className = "window"
+  header.className = "bar"
+  inner.className = "inner"
+  //
+  header.innerText = title;
+  inner.innerText = message;
+  button.innerText = "ok"
+  //
+  window.style.left = "50vw"
+  window.style.top = "50vh"
+  //
+  input.type = type;
+  button.onclick = function() {
+    input.value;
+  }
+  return value;
+}
+function deleteDialog(){
+
+}
+function error(title, message){
+  var window = document.createElement("div");
+  var header = document.createElement("div");
+  var inner = document.createElement("div");
+  var close = document.createElement("a");
+  //
+  document.body.appendChild(window);
+  window.appendChild(header);
+  window.appendChild(inner);
+  header.appendChild(close);
+  //
+  window.className = "window"
+  header.className = "bar"
+  inner.className = "inner"
+  //
+  header.innerText = title;
+  inner.innerText = message;
+  close.innerText = "X";
+  //
+  window.style.left = "50vw"
+  window.style.top = "50vh"
+  //
+  header.style.backgroundColor = "red"
+  //
+  close.onclick = window.remove();
+  //
+  dragElement(window)
+}
 function createWindow(t, inner, m, x, y, h){
   var window = {
     title: t,
@@ -8,37 +70,37 @@ function createWindow(t, inner, m, x, y, h){
     isHolded: h,
   }
   windows.push(window);
-  renderWindow(0);
+  renderWindow(windows.length-1);
 }
 function renderWindow(i){
   console.log(windows)
   var window = document.createElement("div");
+  var header = document.createElement("div")
   var inner = document.createElement("div");
   window.className = "window";
-  window.setAttribute('id', i)
+  header.className = "bar";
+  inner.className = "inner"
+  window.setAttribute('id', `window${i}`)
+  header.setAttribute('id', `window${i}header`)
   document.body.appendChild(window);
+  window.appendChild(header);
   window.appendChild(inner);
-  window.innerText = windows[i].title
-  inner.innerHTML = window.inner
-  window.onmousedown = down;
+  header.innerHTML = windows[i].title+` <a style="color: red;font-style: italic;" onclick="closeWindow(${i})">❌</a>`
+  inner.innerHTML = windows[i].inner
+  dragElement(window);
+  window.onclick = function(e) {
+    e.target.style.zIndex++;
+  }
 }
-function down(e){
-  e = e || window.event;
-  e.preventDefault();
-  e.clientX = windows[e.target.getAttribute("id")].position.x;
-  e.clientY = windows[e.target.getAttribute("id")].position.y;
-  document.onmousemove = move;
-  document.onmouseup = up;
+
+function closeWindow(i){
+  document.getElementById(`window${i}`).remove();
+  windows.splice(i, i)
+  console.log(windows)
 }
-function move(e){
-  e = e || window.event;
-  e.preventDefault();
-  e.clientX = windows[e.target.getAttribute("id")].position.x;
-  e.clientY = windows[e.target.getAttribute("id")].position.y;
-  e.target.style.left = e.clientX + "px";
-  e.target.style.top = e.clientY + "px";
+function minimalize(i){
+  document.getElementById(`window${i}`).style.display = 'none'
 }
-function up(){
-  document.onmouseup = null;
-  document.onmousemove = null;
+function show(i){
+  document.getElementById(`window${i}`).style.display = 'block'
 }
