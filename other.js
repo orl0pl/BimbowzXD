@@ -1,3 +1,4 @@
+
 timer();
 
 function timer(){
@@ -21,3 +22,10 @@ if(hours > 11){
  document.getElementById('clock').innerHTML = t_str+'<br>'+time;
  setTimeout(timer,1000);
 }
+window.addEventListener("beforeunload", function (e) {
+    var confirmationMessage = "\o/";
+  
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage;                            //Webkit, Safari, Chrome
+  });
+//TODO: Add app picker and game

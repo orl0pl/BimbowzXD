@@ -44,6 +44,13 @@ body {
 }
 .bar {
     border-radius: 1vh 1vh 0vh 0vh;
-    background-color: #04f;
+    background-color: #04f4;
     color: #fff;
+}
+.bar:hover {
+    background-color: #04fa;
+    cursor: grab;
+}
+.bar:active {
+    cursor: grabbing;
 }
