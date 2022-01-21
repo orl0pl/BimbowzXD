@@ -92,7 +92,6 @@ function renderWindow(i){
     e.target.style.zIndex++;
   }
 }
-
 function closeWindow(i){
   document.getElementById(`window${i}`).remove();
   windows.splice(i, i)

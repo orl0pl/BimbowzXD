@@ -54,3 +54,30 @@ body {
 .bar:active {
     cursor: grabbing;
 }
+.explorer {
+    position: absolute;
+    font-size: 3vh;
+    background-color: #fff;
+    width: 25vw;
+    bottom: 5.5vh;
+}
+.explorer-header {
+    background-color: #04f4;
+}
+.explorer .actions {
+    display: inline-block;
+    text-align: end;
+    margin-bottom: 0;
+}
+.explorer .applist {
+    border-left: 0.1vw solid #8888;
+    display: inline-block;
+}
+.explorer .applist ul {
+    list-style-type: none;
+    padding-left: 1vw;
+}
+.explorer img {
+    height: 3vh;
+    margin-right: 1vw;
+}

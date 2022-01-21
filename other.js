@@ -29,3 +29,6 @@ window.addEventListener("beforeunload", function (e) {
     return confirmationMessage;                            //Webkit, Safari, Chrome
   });
 //TODO: Add app picker and game
+function openExplorer(){
+    var exp = document.getElementsByClassName('explorer');
+}
