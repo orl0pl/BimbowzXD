@@ -32,3 +32,7 @@ window.addEventListener("beforeunload", function (e) {
 function openExplorer(){
     var exp = document.getElementsByClassName('explorer');
 }
+function urlDrop(e){
+    e.preventDefault();
+    console.log(e)
+}
